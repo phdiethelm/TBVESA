@@ -1,0 +1,201 @@
+Open Watcom Linker Version 1.5beta1 Limited Availability
+Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
+Created on:       06/05/17 14:31:35
+Executable Image: .\bin\tb800.drv
+creating a DOS executable
+
+
+                        +------------+
+                        |   Groups   |
+                        +------------+
+
+Group                           Address              Size
+=====                           =======              ====
+
+DGROUP                          0000:0000            00007143
+
+
+
+                        +--------------+
+                        |   Segments   |
+                        +--------------+
+
+Segment                Class          Group          Address         Size
+=======                =====          =====          =======         ====
+
+_TEXT                  CODE           DGROUP         0000:0000       00004cf1
+_DATA                  DATA           DGROUP         04cf:0002       00001e74
+CONST                  DATA           DGROUP         06b6:0006       00000158
+CONST2                 DATA           DGROUP         06cb:000e       00000000
+_BSS                   BSS            DGROUP         06cb:000e       00000485
+
+
+                        +----------------+
+                        |   Memory Map   |
+                        +----------------+
+
+* = unreferenced symbol
++ = symbol only referenced locally
+
+Address        Symbol
+=======        ======
+
+Module: .\obj\startup.obj(W:\proj\tbvesa\src\startup.asm)
+0000:0000      start
+Module: .\obj\bitmap.obj(W:\proj\tbvesa\src\bitmap.c)
+0000:011d      DrawBitmapRelative
+Module: .\obj\circle.obj(W:\proj\tbvesa\src\circle.c)
+0000:0336      DrawArcAbsolute
+0000:06a0      DrawWideArcAbsolute32
+0000:0a67      DrawCircleAbsolute
+0000:0c64      DrawCircleRelative
+0000:0c8e      DrawCircleAbsolute32
+Module: .\obj\cursor.obj(W:\proj\tbvesa\src\cursor.c)
+0000:4cf2+     _CursorStyle
+0000:4cf3+     _CursorState
+0000:1795      SetCursorState
+0000:1933      SetCursorStyle
+Module: .\obj\driver.obj(W:\proj\tbvesa\src\driver.c)
+0000:4d70      _BitmapBuffer
+0000:4d74      _ScaleLookupTable
+0000:1af9      DriverMain
+0000:1b68+     InitDriver
+0000:1bd8+     ShutdownDriver
+0000:1bea+     AllocBuffers
+0000:1c68+     FreeBuffers
+0000:1cad      PrintString_
+Module: .\obj\font.obj(W:\proj\tbvesa\src\font.c)
+0000:60c6      _BitmapFont
+0000:67c6      _VectorFont
+0000:69c6      _VectorFontIEEE
+Module: .\obj\grid.obj(W:\proj\tbvesa\src\grid.c)
+0000:1cc2      DrawGridDots
+0000:1d32      DrawGridDotsRelative
+Module: .\obj\line.obj(W:\proj\tbvesa\src\line.c)
+0000:1dba      DrawWideLineAbsolute
+0000:1de7      DrawWideLineRelative
+0000:1f26      DrawDashedLineAbsolute
+0000:1f6d      DrawDashedLineRelative
+0000:1f98      DrawSolidLineAbsolute
+0000:1fdb      DrawSolidLineRelative
+0000:2001      DrawLineFunction
+Module: .\obj\line_a.obj(W:\proj\tbvesa\src\line_a.asm)
+0000:2612      DrawWideLineAbsolute32
+Module: .\obj\memory.obj(W:\proj\tbvesa\src\memory.c)
+0000:6b10      _FrameBufferHandle
+0000:6b12      _TransferBuffer
+0000:3469      InitMemory_
+0000:352e      ShutdownMemory_
+0000:3568      AllocMemory_
+0000:35bf      FreeMemory_
+0000:35ca+     AllocExtendedMemory_
+0000:35e2*     FreeExtendedMemory_
+0000:35f4      MoveExtendedMemory_
+Module: .\obj\rectngle.obj(W:\proj\tbvesa\src\rectngle.c)
+0000:3635      ClearRectangle
+0000:36ec      FillRectangle
+0000:37ad      HighlightRectangle
+0000:3863      SaveRectangle
+0000:3914      RestoreRectangle
+0000:3a46      CopyRectangle
+0000:6d4e      _SavedRectangle
+Module: .\obj\state.obj(W:\proj\tbvesa\src\state.c)
+0000:6d50+     _WindowStateStack
+0000:6de8+     _Palette
+0000:6df8      _WindowStartY32
+0000:6dfc      _WindowStartX32
+0000:6e00      _WindowEndX32
+0000:6e04      _WindowEndY32
+0000:6e08      _Scale32Div2
+0000:6e0c      _Scale32
+0000:6e10      _DrawingPositionY
+0000:6e12      _WindowEndX
+0000:6e14      _WindowEndY
+0000:6e16      _WindowOriginX
+0000:3b10      GetBitmapBufferAddress
+0000:3b1f      GetScreenResolution
+0000:3b49      GetColor
+0000:3b64      SetColor
+0000:3b98      GetScale
+0000:3ba3      SetScale
+0000:3c1c      SetWindow
+0000:3c41      SetWindowOrigin
+0000:3c5b      SaveWindowState
+0000:3cc4      RestoreWindowState
+0000:3d2c      SetWindow32
+0000:3d87      MoveAbsolute
+0000:3d9f      MoveRelative
+0000:3db9      SetModeHighlight
+0000:3ddc      SetModeNormal
+0000:3df7      SetModeXor
+0000:6b18+     _MapMaskMap
+0000:6e18      _WindowOriginY
+0000:6e1a      _WindowStartY
+0000:6e1c      _WindowStartX
+0000:6e1e      _TopOfWindowStateStack
+0000:6e20      _LineDrawingMode
+0000:6e22      _DrawingPositionX
+0000:6e24      _Scale
+0000:6e26      _MapMask
+0000:6e27      _CharSetSpecial
+0000:6e28      _Mode
+0000:6e29      _CharSetIEEE
+0000:6e2a      _Color
+Module: .\obj\text.obj(W:\proj\tbvesa\src\text.c)
+0000:3e12      PrintDriverInfo
+0000:3e3a      DrawFixedStringAbsolute
+0000:3e92      DrawFixedStringRelative
+0000:3eba      DrawVariableStringAbsolute
+0000:3f12      DrawVariableStringRelative
+0000:3f3d      DrawFixedTextAbsolute
+0000:3f76      DrawFixedTextRelative
+0000:3f9b      DrawVariableTextAbsolute
+0000:3ff3      DrawVariableTextRelative
+Module: .\obj\video.obj(W:\proj\tbvesa\src\video.c)
+0000:713e      _BytesPerLine
+0000:7140+     _DualWindowSystem
+0000:4454      InitVideo_
+0000:4628      ShutdownVideo_
+0000:4640      Translate_
+0000:46a9      PutPixel_
+0000:46f3      AccessVideoMemory_
+0000:472b      AccessFrameBuffer_
+0000:4753      NextVideoMemoryBlock_
+0000:4763      NextFrameBufferBlock_
+Module: .\obj\tb800.obj(W:\proj\tbvesa\src\tb800.c)
+0000:6b2a      _ResolutionX
+0000:6b2c      _ResolutionY
+0000:6b2e      _ResolutionMaxXY
+0000:6b30      _DriverInfoString
+Module: w:\OW15/lib286/dos\clibs.lib(i4d)
+0000:484a      __I4D
+0000:4893      __U4D
+Module: w:\OW15/lib286/dos\clibs.lib(i4m)
+0000:4918      __I4M
+0000:4918      __U4M
+Module: w:\OW15/lib286/dos\clibs.lib(i8d086)
+0000:4c3b*     __U8DQ
+0000:4c51*     __U8DR
+0000:4c67      __I8DQ
+0000:4c83*     __I8DR
+0000:4c99*     __U8DQE
+0000:4caf*     __U8DRE
+0000:4cc5*     __I8DQE
+0000:4cdb*     __I8DRE
+
+
+                        +--------------------+
+                        |   Libraries Used   |
+                        +--------------------+
+
+w:\OW15/lib286/dos\clibs.lib
+
+
+                        +-----------------------+
+                        |   Linker Statistics   |
+                        +-----------------------+
+
+Stack size:  1000 (4096.)
+Memory size:  7143 (28995.)
+Entry point address: 0000:0000
+Link time: 00:00.00

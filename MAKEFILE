@@ -1,0 +1,118 @@
+############################################################################
+#                                                                          #
+#  Makefile for TRaceBack's OrCAD Release IV/386+ VESA VBE 1.2+ Driver     #
+#                                                                          #
+############################################################################
+
+.ERASE
+.SILENT
+
+CC          = wcc
+CFLAGS      = -6 -bt=dos -g=DGROUP -i=$(PROJECT_INCLUDE_DIR) -j -ms &
+              -nt=_TEXT -ob -oh -ok -ol+ -or -os -ox -wx -ze -zlf -zls &
+              -zp1 -zq -zu
+AS          = wasm
+AFLAGS      = -bt=dos -ms -wx -zq
+LINK        = wlink
+LFLAGS      = @driver.lnk
+
+############################################################################
+#                                                                          #
+#  Directory Settings                                                      #
+#                                                                          #
+############################################################################
+
+PROJECT_INCLUDE_DIR = .\include
+PROJECT_SOURCE_DIR  = .\src
+PROJECT_OBJECT_DIR  = .\obj
+PROJECT_BINARY_DIR  = .\bin
+
+.c : $(PROJECT_SOURCE_DIR)
+.asm : $(PROJECT_SOURCE_DIR)
+
+############################################################################
+#                                                                          #
+#  Object Files                                                            #
+#                                                                          #
+############################################################################
+
+# ATTENTION : startup.obj *MUST* remain the first object in the list
+
+OBJS	    = $(PROJECT_OBJECT_DIR)\startup.obj &
+	      $(PROJECT_OBJECT_DIR)\bitmap.obj &
+	      $(PROJECT_OBJECT_DIR)\circle.obj &
+	      $(PROJECT_OBJECT_DIR)\cursor.obj &
+	      $(PROJECT_OBJECT_DIR)\driver.obj &
+	      $(PROJECT_OBJECT_DIR)\font.obj &
+	      $(PROJECT_OBJECT_DIR)\grid.obj &
+	      $(PROJECT_OBJECT_DIR)\line.obj &
+	      $(PROJECT_OBJECT_DIR)\line_a.obj &
+	      $(PROJECT_OBJECT_DIR)\memory.obj &
+	      $(PROJECT_OBJECT_DIR)\rectngle.obj &
+	      $(PROJECT_OBJECT_DIR)\state.obj &
+	      $(PROJECT_OBJECT_DIR)\text.obj &
+	      $(PROJECT_OBJECT_DIR)\video.obj
+
+RES_OBJS    = $(PROJECT_OBJECT_DIR)\tb640.obj &
+	      $(PROJECT_OBJECT_DIR)\tb800.obj &
+	      $(PROJECT_OBJECT_DIR)\tb1024.obj &
+	      $(PROJECT_OBJECT_DIR)\tb1280.obj &
+	      $(PROJECT_OBJECT_DIR)\tb1600.obj
+
+############################################################################
+#                                                                          #
+#  Targets                                                                 #
+#                                                                          #
+############################################################################
+
+TARGETS	    = $(PROJECT_BINARY_DIR)\tb640.drv &
+	      $(PROJECT_BINARY_DIR)\tb800.drv &
+	      $(PROJECT_BINARY_DIR)\tb1024.drv &
+	      $(PROJECT_BINARY_DIR)\tb1280.drv &
+	      $(PROJECT_BINARY_DIR)\tb1600.drv
+
+all : $(TARGETS) .SYMBOLIC
+	%null
+
+install : all .SYMBOLIC
+	for %i in ($(TARGETS)) do copy %i $(%ORCADESP)drv
+
+clean : .SYMBOLIC
+	rm $(OBJS)
+	rm $(RES_OBJS)
+	rm $(TARGETS)
+	rm driver.lnk
+
+############################################################################
+#                                                                          #
+#  Explicit Rules                                                          #
+#                                                                          #
+############################################################################
+
+$(TARGETS) :: $(OBJS) $(RES_OBJS) driver.lnk
+	*$(LINK) $(LFLAGS) name $^@ option map=$^*.map &
+		libfile $(PROJECT_OBJECT_DIR)\$^&.obj
+
+driver.lnk : makefile
+	%create $^@
+	%append $^@ system dos
+	for %i in ($(OBJS)) do %append $^@ libfile %i
+	%append $^@ option start=start
+	%append $^@ option caseexact
+	%append $^@ option dosseg
+	%append $^@ option quiet
+	%append $^@ disable 1014
+
+############################################################################
+#                                                                          #
+#  Implicit Rules                                                          #
+#                                                                          #
+############################################################################
+
+.c.obj : .AUTODEPEND
+	*$(CC) $(CFLAGS) -fo=$^@ $[@
+
+.asm.obj : .AUTODEPEND
+	*$(AS) $(AFLAGS) -fo=$^@ $[@
+
+############################################################################
